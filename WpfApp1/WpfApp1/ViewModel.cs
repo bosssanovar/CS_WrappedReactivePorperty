@@ -12,16 +12,17 @@ namespace WpfApp1
 {
     public partial class MainWindow
     {
-        public ReactivePropertySlim<string> Text { get; }
-        public ReadOnlyReactivePropertySlim<string> Display { get; }
+        public ReactivePropertySlim<Data> Data { get; set; }
 
-        public string InnerText { get; set; } = "Init";
+
+        public ReactiveProperty<string> Text { get; }
+        public ReadOnlyReactivePropertySlim<string> Display { get; }
 
         public ReactiveCommand InitCommand { get; } = new ReactiveCommand();
 
         public void Init()
         {
-            InnerText = "Init";
+            Data.Value = new Data();
         }
     }
 }

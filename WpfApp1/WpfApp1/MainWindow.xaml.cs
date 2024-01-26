@@ -1,4 +1,5 @@
 ﻿using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 using System.Reactive.Linq;
 using System.Text;
 using System.Windows;
@@ -20,9 +21,14 @@ namespace WpfApp1
     {
         public MainWindow()
         {
+            Data = new ReactivePropertySlim<Data>(new WpfApp1.Data());
 
-            Text = new ReactivePropertySlim<string>(InnerText);
-            Text.Subscribe(x => InnerText = x);
+            Text = Data.Select(x => x.Text1).ToReactiveProperty<string>();
+            Text.Subscribe(value =>
+            {
+                Data.Value.Text1 = value;
+                Data.ForceNotify();//これはただの表示更新用。これが無くても、内部値はきちんと更新されている
+            });
 
             Display = Text.Select(x => x + "Disp.").ToReadOnlyReactivePropertySlim<string>();
 
