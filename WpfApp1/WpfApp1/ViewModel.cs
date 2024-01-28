@@ -15,13 +15,14 @@ namespace WpfApp1
         public ReactivePropertySlim<Data> Data { get; set; }
 
 
-        public ReactiveProperty<string> Text { get; }
         public ReadOnlyReactivePropertySlim<string> Display { get; }
 
-        public ReactiveCommand InitCommand { get; } = new ReactiveCommand();
+        public AsyncReactiveCommand InitCommand { get; } = new AsyncReactiveCommand();
 
-        public void Init()
+        public async Task InitAsync()
         {
+            await Task.Delay(1000);
+
             Data.Value = new Data();
         }
     }

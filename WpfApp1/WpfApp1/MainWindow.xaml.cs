@@ -21,18 +21,14 @@ namespace WpfApp1
     {
         public MainWindow()
         {
-            Data = new ReactivePropertySlim<Data>(new WpfApp1.Data());
+            // TODO K.I : 内部プロパティの変更も通知されるの！？
+            var dat = new WpfApp1.Data();
+            Data = new ReactivePropertySlim<Data>(dat);
 
-            Text = Data.Select(x => x.Text1).ToReactiveProperty<string>();
-            Text.Subscribe(value =>
-            {
-                Data.Value.Text1 = value;
-                Data.ForceNotify();//これはただの表示更新用。これが無くても、内部値はきちんと更新されている
-            });
+            // TODO K.I : どうやればこれが更新される？
+            Display = Data.Select(x => x.Text1 + "Disp.").ToReadOnlyReactivePropertySlim<string>();
 
-            Display = Text.Select(x => x + "Disp.").ToReadOnlyReactivePropertySlim<string>();
-
-            InitCommand.Subscribe(_ => Init());
+            InitCommand.Subscribe(async _ => await InitAsync());
 
 
             InitializeComponent();

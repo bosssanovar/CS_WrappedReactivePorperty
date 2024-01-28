@@ -8,12 +8,12 @@
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TextBox HorizontalAlignment="Left" Margin="271,169,0,0" TextWrapping="Wrap" Text="{Binding Text.Value, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
-        <TextBlock HorizontalAlignment="Left" Margin="285,232,0,0" TextWrapping="Wrap" Text="{Binding Display.Value, Mode=OneWay}" VerticalAlignment="Top"/>
-        <Button Content="フォーカス退避場" HorizontalAlignment="Left" Margin="433,169,0,0" VerticalAlignment="Top"
-                Command="{Binding InitCommand}"/>
         <TextBlock HorizontalAlignment="Left" Margin="285,75,0,0" TextWrapping="Wrap" Text="{Binding Data.Value.Text1}" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="285,105,0,0" TextWrapping="Wrap" Text="{Binding Data.Value.Text2}" VerticalAlignment="Top"/>
 
+        <TextBox HorizontalAlignment="Left" Margin="271,169,0,0" TextWrapping="Wrap" Text="{Binding Data.Value.Text1, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="285,232,0,0" TextWrapping="Wrap" Text="{Binding Display.Value, Mode=OneWay}" VerticalAlignment="Top"/>
+        <Button Content="フォーカス退避場" HorizontalAlignment="Left" Margin="433,169,0,0" VerticalAlignment="Top"
+                Command="{Binding InitCommand}"/>
     </Grid>
 </Window>
