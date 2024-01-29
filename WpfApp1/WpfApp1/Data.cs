@@ -8,11 +8,21 @@ namespace WpfApp1
 {
     public class Data
     {
-        const string InitText1 = "Text1";
+        public const string InitText1 = "Text1";
         const string InitText2 = "Text2";
+        private string text1 = string.Empty;
 
-        public string Text1 { get; set; } = string.Empty;
+        public string Text1
+        {
+            get => text1;
+            set {
+                text1 = value;
+                TextChanged?.Invoke();
+            }
+        }
         public string Text2 { get; set; } = string.Empty;
+
+        public event Action? TextChanged;
 
         public Data()
         {

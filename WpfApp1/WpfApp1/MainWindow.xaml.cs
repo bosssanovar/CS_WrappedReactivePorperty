@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WpfApp1
 {
@@ -21,17 +22,32 @@ namespace WpfApp1
     {
         public MainWindow()
         {
-            // TODO K.I : 内部プロパティの変更も通知されるの！？
-            var dat = new WpfApp1.Data();
+            var dat = CreateDataField();
             Data = new ReactivePropertySlim<Data>(dat);
-
-            // TODO K.I : どうやればこれが更新される？
-            Display = Data.Select(x => x.Text1 + "Disp.").ToReadOnlyReactivePropertySlim<string>();
+            Data.Subscribe(_ => Dat_TextChanged());
 
             InitCommand.Subscribe(async _ => await InitAsync());
 
 
             InitializeComponent();
+        }
+
+        private Data CreateDataField()
+        {
+            if (_dat is not null)
+            {
+                _dat.TextChanged -= Dat_TextChanged;
+            }
+            _dat = new WpfApp1.Data();
+            _dat.TextChanged += Dat_TextChanged;
+
+            return _dat;
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            _dat.TextChanged -= Dat_TextChanged;
+            base.OnClosed(e);
         }
     }
 }
